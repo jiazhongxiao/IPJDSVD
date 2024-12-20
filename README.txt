@@ -4,11 +4,11 @@ IPJDSVD Documentation
 IPJDSVD: Inner preconditioned Jacobi--Davidson SVD method. 
 ********************************************************************* 
 
-"ipjdsvd()" finds k singular values of the matrix A closest to a given target 
+"ipjdsvd()" and "ipjdsvd_hybrid ()" find k singular values of the matrix A closest to a given target 
 and/or the corresponding left and right singular vectors using the standard 
-extraction version of the inner preconditoned inexact Jacobi-Davidson type 
-SVD algorithm such that the computed approximate partial SVD (T,U,V) of A 
-satisfies 
+extraction version of the inner preconditoned Jacobi-Davidson type 
+SVD algorithms and its two stage variant that first works on the cross-product of A  and then switches to the augmented matrices of A, 
+such that the computed approximate partial SVD (T,U,V) of A satisfies 
       ||AV-UT||_F^2+||A^TU-VT||_F^2 <= k||A||_2^2*tol^2, 
 where the diagonal elements of the diagonal matrix T save the approximate 
 singular values of A and the columns of U and V save the corresponding left 
@@ -43,13 +43,13 @@ Support
   No. BK20220482
 
 
-Pre-pocess 
+Pre-process 
 ===================
 Before using IPJDSVD, add the folder (without subfolders) "IPJDSVD-Master" 
 to the MATLAB search path list on the MATLAB homepage. 
 
  
-Implementation information
+Implementation information on ipjdsvd, and the same for ipjdsvd_hybrid. 
 ===================
 
 function [varargout] = ipjdsvd(varargin)
@@ -122,7 +122,7 @@ PARAMETER           DESCRIPTION
                               Convergence is determined when 
                                     ||[A^Tu-θv;Av-θu|| <= ||A||·TOL,  
                               where (θ,u,v) is the current approximate singular 
-                      	      triplet of A and ||A|| is the 1-norms of A is A is 
+                      	      triplet of A and ||A|| is the 1-norm of A when A is 
                               given as a matrix or estimate 2-norm of A if the 
                               function handle Afun is given.
                               DEFAULT VALUE    TOL = 1e-8 
@@ -255,5 +255,5 @@ REFERENCES:
 
  [2] Jinzhi Huang and Zhongxiao Jia, Preconditioning correction equations 
       in Jacobi--Davidson type methods for computing partial singular value 
-      decompositions of large matrices, (2024), 26 pages.
+      decompositions of large matrices, Numerical Algorithms,  (2024), 26 pages.
  
